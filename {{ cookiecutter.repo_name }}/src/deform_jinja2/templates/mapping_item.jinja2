@@ -1,0 +1,29 @@
+{% set hidden = hidden or field.widget.hidden %}
+{% set category = category or field.widget.category %}
+{% set structural = hidden or category == 'structural' %}
+
+{% set output %}
+  {% if caller is defined %}
+    {{ caller() }}
+  {% else %}
+    {{ field.serialize(cstruct, name=name, oid=oid) }}
+  {% endif %}
+  {% if field.error and not hidden %}
+  <ul>
+  {% for message in field.error.messages() %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+{% endset %}
+
+{% if not structural %}
+  <div>
+    <label{{ {
+      'for': oid or field.oid
+    }|htmlattr }}>{{title or field.title }}</label>
+    {{ output }}
+  </div>
+{% else %}
+  {{ output }}
+{% endif %}

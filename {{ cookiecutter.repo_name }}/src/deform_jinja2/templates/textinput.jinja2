@@ -1,0 +1,8 @@
+<input{{ {
+  'type': 'text',
+  'name': name or field.name,
+  'value': cstruct,
+  'id': oid or field.oid,
+  'class': css_class or field.css_class,
+  'style': style or field.style
+}|htmlattr }}/>

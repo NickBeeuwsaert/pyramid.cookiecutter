@@ -1,0 +1,1 @@
+recursive-include lib/mtg_collection *.jinja2

@@ -1,0 +1,8 @@
+<textarea{{ {
+    "rows": rows or field.widget.rows,
+    "cols": cols or field.widget.cols,
+    "class": css_class,
+    "style": style or field.widget.style,
+    "id": oid or field.oid,
+    "name": name or field.name
+}|htmlattr }}>{{ cstruct }}</textarea>

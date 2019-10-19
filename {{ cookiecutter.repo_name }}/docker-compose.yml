@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  {{ cookiecutter.repo_name }}:
+    build:
+      context: .
+      args:
+        editable: "yes"
+        extras: dev,test
+    ports:
+      - "6543:6543"
+    environment:
+      # Don't write __pycache__
+      # This just fixes some problems with volumes when the container
+      # generates __pycache__ directories
+      - "PYTHONDONTWRITEBYTECODE=1"
+    depends_on:
+      - redis
+      - db
+    volumes:
+      # Pass each package directory manually to docker
+      # so that the *.egg-info file doesnt get overwritten
+      # I can't a decent way to change the location pip puts
+      # the *.egg-info file, and still install extras
+      - "./src/{{ cookiecutter.repo_name }}:/app/src/{{ cookiecutter.repo_name }}"
+      - "./src/deform_jinja2:/app/src/deform_jinja2"
+      - "./src/redis_sessions:/app/src/redis_sessions"
+      - "./tests:/app/tests"
+      - "./development.ini:/app/development.ini"
+      - "./alembic.ini:/app/alembic.ini"
+      - "./migrations:/app/migrations"
+    command: pserve --reload development.ini
+  redis:
+    image: "redis:alpine"
+  db:
+    image: "postgres:alpine"
+    volumes:
+      - "./entrypoints/db:/docker-entrypoint-initdb.d"

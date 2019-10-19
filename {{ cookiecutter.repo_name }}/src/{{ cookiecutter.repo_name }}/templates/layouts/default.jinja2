@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <header>
+    {% if request.user %}
+      Welcome, {{ request.user.name }}. <a href="{{ 'user.logout'|route_url }}">Logout</a>
+    {% else %}
+      <a href="{{ 'user.login'|route_url }}">Login</a> |
+      <a href="{{ 'user.register'|route_url }}">Register</a>
+    {% endif %}
+  </header>
+  <div>
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

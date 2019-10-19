@@ -1,0 +1,5 @@
+{
+  "project_name": "Pyramid Starter",
+  "repo_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '_').replace(':', '_').replace('-', '_').replace('!', '_') }}",
+  "_copy_without_render": ["*.jinja2"]
+}

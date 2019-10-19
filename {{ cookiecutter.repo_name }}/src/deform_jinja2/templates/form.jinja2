@@ -1,0 +1,37 @@
+{% set formid = formid or field.formid %}
+{% set item_template = item_template or field.widget.item_template %}
+
+<form{{ {
+  'id': formid,
+  'method': method or field.method,
+  'action': action or field.action,
+  'enctype': 'multipart/form-data',
+  'accept-charset': 'UTF-8'
+}|htmlattr }}>
+  {% if caller is defined %}
+    {{ caller() }}
+  {% else %}
+    {% if field.error %}
+      <ul>
+        {% for message in field.error.messages() %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% for subfield in field %}
+      {{ subfield.render_template(item_template) }}
+    {% endfor %}
+    <div>
+      {% for button in buttons or field.buttons %}
+        <button{{ {
+          'type': button.type,
+          'name': button.name,
+          'disabled': button.disabled,
+          'value': button.value,
+          'class': button.css_class,
+          'type': button.type
+        }|htmlattr }}>{{ button.title }}</button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</form>
