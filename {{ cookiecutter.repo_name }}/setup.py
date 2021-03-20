@@ -35,7 +35,7 @@ setup(
         "redis==3.3.11",
         "zope.sqlalchemy==1.2",
         "zope.interface==4.6.0",
-        "Jinja2==2.10.3",
+        "Jinja2==2.11.3",
         "MarkupSafe==1.1.1",
         "pyramid_tm==2.3",
         "pyramid_retry==2.1",
