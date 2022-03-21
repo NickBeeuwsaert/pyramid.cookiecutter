@@ -27,7 +27,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "pyramid==1.10.4",
-        "waitress==1.4.3",
+        "waitress==2.1.1",
         "pyramid_jinja2==2.8",
         "SQLAlchemy[postgresql]==1.3.10",
         "deform==2.0.8",
